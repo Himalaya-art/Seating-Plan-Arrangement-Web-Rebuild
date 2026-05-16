@@ -15,12 +15,12 @@ function createEmptyPlan(nRows, nCols) {
 }
 
 export function genderArrange(students, nRows, nCols, aisles, constraints = {}) {
-  const { blockWidths, blocksPerRow } = getBlockStructure(nCols, aisles);
-  const totalBlocks = nRows * blocksPerRow;
+  const { blockWidths, blockRanges, blocksPerRow } = getBlockStructure(nCols, aisles);
 
   const males = shuffle(students.filter(s => s.gender === '男'));
   const females = shuffle(students.filter(s => s.gender === '女'));
 
+  // 只有一种性别时回退到随机排列
   if (males.length === 0 || females.length === 0) {
     const shuffled = shuffle(students);
     const plan = createEmptyPlan(nRows, nCols);
@@ -34,104 +34,68 @@ export function genderArrange(students, nRows, nCols, aisles, constraints = {}) 
     return { seatingPlan: plan, violations: [] };
   }
 
-  const blockList = [];
-  for (let r = 0; r < nRows; r++) {
-    for (let b = 0; b < blocksPerRow; b++) {
-      blockList.push({ row: r, blockPos: b, capacity: blockWidths[b] });
-    }
-  }
-
-  const shuffledBlocks = shuffle(blockList);
-
-  const blockAssignments = {};
-  let remainingMales = males.length;
-  let remainingFemales = females.length;
-
-  for (let i = 0; i < shuffledBlocks.length; i++) {
-    const block = shuffledBlocks[i];
-    const key = `${block.row}-${block.blockPos}`;
-    if (remainingMales >= remainingFemales && remainingMales > 0) {
-      const assign = Math.min(block.capacity, remainingMales);
-      blockAssignments[key] = { gender: '男', count: assign };
-      remainingMales -= assign;
-    } else if (remainingFemales > 0) {
-      const assign = Math.min(block.capacity, remainingFemales);
-      blockAssignments[key] = { gender: '女', count: assign };
-      remainingFemales -= assign;
-    } else {
-      blockAssignments[key] = { gender: null, count: 0 };
-    }
-
-    if (remainingMales === 0 && remainingFemales === 0) {
-      for (let j = i + 1; j < shuffledBlocks.length; j++) {
-        const b2 = shuffledBlocks[j];
-        blockAssignments[`${b2.row}-${b2.blockPos}`] = { gender: null, count: 0 };
-      }
-      break;
-    }
-  }
-
-  if (remainingMales > 0 || remainingFemales > 0) {
-    for (let i = shuffledBlocks.length - 1; i >= 0; i--) {
-      const block = shuffledBlocks[i];
-      const key = `${block.row}-${block.blockPos}`;
-      const total = remainingMales + remainingFemales;
-      if (total <= block.capacity) {
-        blockAssignments[key] = { gender: 'mixed', count: total };
-        remainingMales = 0;
-        remainingFemales = 0;
-        break;
-      }
-    }
-  }
-
+  const plan = createEmptyPlan(nRows, nCols);
   const maleQueue = [...males];
   const femaleQueue = [...females];
 
-  const plan = createEmptyPlan(nRows, nCols);
-  const { blockRanges } = getBlockStructure(nCols, aisles);
-
+  // 从前往后（行0最接近讲台）逐行填充
   for (let r = 0; r < nRows; r++) {
-    for (let b = 0; b < blocksPerRow; b++) {
-      const key = `${r}-${b}`;
-      const assignment = blockAssignments[key] || { gender: null, count: 0 };
+    const totalRemaining = maleQueue.length + femaleQueue.length;
+    if (totalRemaining === 0) break;
+
+    // 按当前剩余男女生比例，估算本行男块数量
+    const maleRatio = totalRemaining > 0 ? maleQueue.length / totalRemaining : 0.5;
+    const numMaleBlockSlots = Math.round(maleRatio * blocksPerRow);
+
+    // 为本行每个块位置随机分配偏好的性别
+    const blockSlots = shuffle(
+      Array.from({ length: blocksPerRow }, (_, i) => i < numMaleBlockSlots ? '男' : '女')
+    );
+    const rowBlockPositions = shuffle(
+      Array.from({ length: blocksPerRow }, (_, b) => b)
+    );
+
+    for (let i = 0; i < rowBlockPositions.length; i++) {
+      const b = rowBlockPositions[i];
       const range = blockRanges[b];
       if (!range) continue;
 
-      let seats = [];
+      const seats = [];
       for (let c = range.start; c <= range.end; c++) {
         seats.push(c);
       }
+      shuffle(seats);
 
-      if (assignment.gender === '男' || (assignment.gender === 'mixed' && maleQueue.length > 0)) {
-        for (const colIdx of seats) {
-          if (assignment.gender === '男' || (assignment.gender === 'mixed' && maleQueue.length > 0)) {
-            plan[r][colIdx] = maleQueue.shift() || null;
-          } else if (assignment.gender === 'mixed' && femaleQueue.length > 0) {
-            plan[r][colIdx] = femaleQueue.shift() || null;
-          }
-        }
-        for (const colIdx of seats) {
-          if (assignment.gender === 'mixed' && plan[r][colIdx] === null && femaleQueue.length > 0) {
-            plan[r][colIdx] = femaleQueue.shift();
-          }
-        }
-      } else if (assignment.gender === '女' || assignment.gender === 'mixed') {
-        for (const colIdx of seats) {
-          if ((assignment.gender === '女' || assignment.gender === 'mixed') && femaleQueue.length > 0) {
-            plan[r][colIdx] = femaleQueue.shift() || null;
-          } else if (assignment.gender === 'mixed' && maleQueue.length > 0) {
-            plan[r][colIdx] = maleQueue.shift() || null;
-          }
-        }
-        for (const colIdx of seats) {
-          if (assignment.gender === 'mixed' && plan[r][colIdx] === null && maleQueue.length > 0) {
-            plan[r][colIdx] = maleQueue.shift();
-          }
+      // 确定主次性别队列
+      let primaryQueue, secondaryQueue;
+      const preferred = blockSlots[i];
+      if (preferred === '男') {
+        primaryQueue = maleQueue;
+        secondaryQueue = femaleQueue;
+      } else {
+        primaryQueue = femaleQueue;
+        secondaryQueue = maleQueue;
+      }
+
+      // 如果首选性别已用完，切换到另一种
+      if (primaryQueue.length === 0 && secondaryQueue.length > 0) {
+        [primaryQueue, secondaryQueue] = [secondaryQueue, primaryQueue];
+      }
+
+      if (primaryQueue.length === 0 && secondaryQueue.length === 0) continue;
+
+      // 填充座位：先用主性别，主性别用完用另一种（形成混合块）
+      for (const colIdx of seats) {
+        if (primaryQueue.length > 0) {
+          plan[r][colIdx] = primaryQueue.shift();
+        } else if (secondaryQueue.length > 0) {
+          plan[r][colIdx] = secondaryQueue.shift();
         }
       }
     }
   }
+
+  // 如果有剩余学生但座位不够（不应出现，主流程已检查），忽略
 
   const { plan: solvedPlan, violations } = solveConstraints(
     plan, constraints, nRows, nCols, aisles
