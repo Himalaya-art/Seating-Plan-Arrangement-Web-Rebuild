@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { randomArrange } from '../algorithms/randomArrange';
 import { genderArrange } from '../algorithms/genderArrange';
 import { seededArrange } from '../algorithms/seededArrange';
@@ -96,6 +96,28 @@ export function SeatingProvider({ children }) {
     setAisles(val);
     resetPlan();
   }, [resetPlan]);
+
+  // Auto-load config.json on startup
+  useEffect(() => {
+    if (localStorage.getItem('configDisabled') === 'true') return;
+
+    const loadConfig = async () => {
+      for (const path of ['/data/config.json', '/config.json']) {
+        try {
+          const res = await fetch(path);
+          if (res.ok) {
+            const config = await res.json();
+            if (config && Object.keys(config).length > 0) {
+              setConstraints(config);
+              setIsConfigLoaded(true);
+            }
+            return;
+          }
+        } catch { /* try next path */ }
+      }
+    };
+    loadConfig();
+  }, []); // run once on mount
 
   const value = {
     students, setStudents,

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Config.json 编辑器</title>
+<style>
+  :root {
+    --color-primary: #4F5D75;
+    --color-primary-hover: #3D4A5F;
+    --color-primary-light: #E8ECF1;
+    --color-accent: #5B7B6F;
+    --color-accent-light: #E8F0EC;
+    --color-neutral-50: #FAFAFA;
+    --color-neutral-100: #F2F2F2;
+    --color-neutral-200: #E5E5E5;
+    --color-neutral-300: #CCCCCC;
+    --color-neutral-500: #6B7280;
+    --color-neutral-700: #404040;
+    --color-neutral-900: #1A1A1A;
+    --color-success: #2D7A46;
+    --color-success-bg: #E8F5E9;
+    --color-danger: #C62828;
+    --color-danger-bg: #FFEBEE;
+    --color-warning: #8A6D14;
+    --color-warning-bg: #FFF8E1;
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    color: var(--color-neutral-700);
+    background: var(--color-neutral-100);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: var(--space-lg);
+  }
+  .container {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md);
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  header h1 {
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+  .status-badge.enabled {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+  }
+  .status-badge.disabled {
+    background: var(--color-neutral-200);
+    color: var(--color-neutral-500);
+  }
+  .card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .card h2 {
+    font-size: var(--text-base);
+    color: var(--color-neutral-900);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-neutral-200);
+  }
+  .card h3 {
+    font-size: var(--text-sm);
+    color: var(--color-neutral-500);
+  }
+  .row {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  textarea {
+    width: 100%;
+    min-height: 280px;
+    font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    font-size: var(--text-xs);
+    padding: var(--space-sm);
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--radius-md);
+    resize: vertical;
+    line-height: 1.5;
+    tab-size: 2;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+  textarea.error {
+    border-color: var(--color-danger);
+  }
+  input[type="text"] {
+    padding: 6px 8px;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-family: var(--font-family);
+    flex: 1;
+    min-width: 120px;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-primary-light);
+  }
+  .btn {
+    padding: 8px 16px;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-family: var(--font-family);
+    transition: background-color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--color-neutral-100); }
+  .btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+  }
+  .btn-primary:hover { background: var(--color-primary-hover); }
+  .btn-success {
+    background: var(--color-success);
+    color: #fff;
+    border-color: var(--color-success);
+  }
+  .btn-success:hover { background: #236B38; }
+  .btn-danger {
+    background: var(--color-danger);
+    color: #fff;
+    border-color: var(--color-danger);
+  }
+  .btn-danger:hover { background: #A01E1E; }
+  .btn-sm { padding: 4px 10px; font-size: var(--text-xs); }
+  .constraint-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .constraint-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--color-neutral-50);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-sm);
+  }
+  .constraint-item .name {
+    font-weight: 600;
+    min-width: 60px;
+    color: var(--color-primary);
+  }
+  .constraint-item .details {
+    flex: 1;
+    font-size: var(--text-xs);
+    color: var(--color-neutral-500);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+  .constraint-item .tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+  }
+  .tag.with { background: var(--color-success-bg); color: var(--color-success); }
+  .tag.without { background: var(--color-danger-bg); color: var(--color-danger); }
+  .form-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+  .form-row label {
+    font-size: var(--text-xs);
+    color: var(--color-neutral-500);
+    min-width: 70px;
+  }
+  .form-row input { flex: 1; min-width: 100px; }
+  .toast {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    animation: slideUp 0.3s ease;
+  }
+  .toast.success { background: var(--color-success-bg); color: var(--color-success); }
+  .toast.error { background: var(--color-danger-bg); color: var(--color-danger); }
+  @keyframes slideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: var(--color-neutral-300);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+  }
+  .toggle.active { background: var(--color-success); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: var(--shadow-sm);
+  }
+  .toggle.active::after { transform: translateX(20px); }
+  .help-text {
+    font-size: var(--text-xs);
+    color: var(--color-neutral-500);
+    line-height: 1.6;
+  }
+  .split-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+  @media (max-width: 600px) {
+    .split-row { grid-template-columns: 1fr; }
+    body { padding: var(--space-sm); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>⚙️ Config.json 编辑器</h1>
+    <span id="statusBadge" class="status-badge disabled">未启用</span>
+  </header>
+
+  <!-- Toggle Section -->
+  <div class="card">
+    <div class="toggle-row">
+      <button id="toggleBtn" class="toggle" onclick="toggleConfig()" aria-label="切换启用状态"></button>
+      <strong id="toggleLabel">约束配置已禁用</strong>
+    </div>
+    <p class="help-text">
+      启用后，主程序启动时自动加载 <code>public/data/config.json</code> 中的约束配置。<br>
+      禁用后，即使配置文件存在也不会应用约束。
+    </p>
+  </div>
+
+  <!-- Load Existing -->
+  <div class="card">
+    <h2>📂 加载现有配置</h2>
+    <div class="row">
+      <button class="btn btn-primary" onclick="loadConfig('/data/config.json')">加载 data/config.json</button>
+      <button class="btn" onclick="loadConfig('/config.json')">加载 config.json</button>
+    </div>
+    <p class="help-text">从服务器加载现有的配置文件到编辑器中。</p>
+  </div>
+
+  <!-- JSON Editor -->
+  <div class="card">
+    <h2>📝 JSON 编辑器</h2>
+    <textarea id="jsonEditor" placeholder='{
+  "学生名": {
+    "with": { "adjacency": ["目标1"], "range": ["目标2"] },
+    "without": { "adjacency": ["目标3"], "range": [] }
+  }
+}'></textarea>
+    <div class="row">
+      <button class="btn btn-primary" onclick="applyJson()">应用 JSON</button>
+      <button class="btn" onclick="formatJson()">格式化</button>
+      <button class="btn" onclick="validateJson()">验证语法</button>
+      <button class="btn" onclick="clearEditor()">清空</button>
+    </div>
+    <p id="jsonFeedback" class="help-text"></p>
+  </div>
+
+  <!-- Structured Form -->
+  <div class="card">
+    <h2>➕ 添加约束（可视化）</h2>
+    <div class="form-row">
+      <label>学生姓名</label>
+      <input type="text" id="studentName" placeholder="例如：小明">
+    </div>
+    <div class="split-row">
+      <div>
+        <h3>✅ 期望相邻 (with)</h3>
+        <div class="form-row">
+          <label>adjacency</label>
+          <input type="text" id="withAdj" placeholder="用逗号分隔，如：小红,小刚">
+        </div>
+        <div class="form-row">
+          <label>range</label>
+          <input type="text" id="withRange" placeholder="用逗号分隔，如：张三">
+        </div>
+      </div>
+      <div>
+        <h3>❌ 避免相邻 (without)</h3>
+        <div class="form-row">
+          <label>adjacency</label>
+          <input type="text" id="withoutAdj" placeholder="用逗号分隔，如：李四">
+        </div>
+        <div class="form-row">
+          <label>range</label>
+          <input type="text" id="withoutRange" placeholder="用逗号分隔，如：王五">
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-success" onclick="addConstraint()">添加此约束</button>
+  </div>
+
+  <!-- Constraint List -->
+  <div class="card">
+    <h2>📋 当前约束列表</h2>
+    <div id="constraintList" class="constraint-list">
+      <p class="help-text">暂无约束，请从 JSON 编辑器应用或使用表单添加。</p>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="card">
+    <h2>💾 操作</h2>
+    <div class="row">
+      <button class="btn btn-primary" onclick="downloadConfig()">下载 config.json</button>
+    </div>
+    <p class="help-text">
+      下载后将文件放置到项目 <code>public/data/</code> 目录下，主程序即可自动加载。
+    </p>
+  </div>
+
+</div>
+
+<script>
+  const STORAGE_KEY = 'configDisabled';
+  let currentConfig = {};
+
+  // ── Init ──
+  function init() {
+    updateToggleUI();
+    loadConfig('/data/config.json');
+  }
+
+  // ── Toggle ──
+  function toggleConfig() {
+    const current = localStorage.getItem(STORAGE_KEY) === 'true';
+    localStorage.setItem(STORAGE_KEY, String(!current));
+    updateToggleUI();
+    showToast(!current ? '约束配置已启用' : '约束配置已禁用', 'success');
+  }
+
+  function updateToggleUI() {
+    const disabled = localStorage.getItem(STORAGE_KEY) === 'true';
+    const btn = document.getElementById('toggleBtn');
+    const label = document.getElementById('toggleLabel');
+    const badge = document.getElementById('statusBadge');
+    if (disabled) {
+      btn.classList.remove('active');
+      label.textContent = '约束配置已禁用';
+      badge.textContent = '未启用';
+      badge.className = 'status-badge disabled';
+    } else {
+      btn.classList.add('active');
+      label.textContent = '约束配置已启用';
+      badge.textContent = '已启用';
+      badge.className = 'status-badge enabled';
+    }
+  }
+
+  // ── Load ──
+  async function loadConfig(path) {
+    try {
+      const res = await fetch(path);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const config = await res.json();
+      currentConfig = config;
+      document.getElementById('jsonEditor').value = JSON.stringify(config, null, 2);
+      renderConstraintList();
+      showToast(`已加载: ${path}`, 'success');
+    } catch (e) {
+      showToast(`加载失败: ${e.message}`, 'error');
+    }
+  }
+
+  // ── JSON Operations ──
+  function applyJson() {
+    const raw = document.getElementById('jsonEditor').value.trim();
+    if (!raw) { currentConfig = {}; renderConstraintList(); return; }
+    try {
+      currentConfig = JSON.parse(raw);
+      document.getElementById('jsonEditor').classList.remove('error');
+      document.getElementById('jsonFeedback').textContent = '';
+      renderConstraintList();
+      showToast('JSON 已应用', 'success');
+    } catch (e) {
+      document.getElementById('jsonEditor').classList.add('error');
+      document.getElementById('jsonFeedback').textContent = '❌ ' + e.message;
+      showToast('JSON 语法错误', 'error');
+    }
+  }
+
+  function formatJson() {
+    try {
+      const obj = JSON.parse(document.getElementById('jsonEditor').value || '{}');
+      document.getElementById('jsonEditor').value = JSON.stringify(obj, null, 2);
+      document.getElementById('jsonEditor').classList.remove('error');
+      document.getElementById('jsonFeedback').textContent = '';
+      showToast('已格式化', 'success');
+    } catch (e) {
+      document.getElementById('jsonEditor').classList.add('error');
+      document.getElementById('jsonFeedback').textContent = '❌ ' + e.message;
+    }
+  }
+
+  function validateJson() {
+    try {
+      JSON.parse(document.getElementById('jsonEditor').value || '{}');
+      document.getElementById('jsonEditor').classList.remove('error');
+      document.getElementById('jsonFeedback').textContent = '✓ JSON 语法正确';
+      document.getElementById('jsonFeedback').style.color = 'var(--color-success)';
+    } catch (e) {
+      document.getElementById('jsonEditor').classList.add('error');
+      document.getElementById('jsonFeedback').textContent = '❌ ' + e.message;
+      document.getElementById('jsonFeedback').style.color = 'var(--color-danger)';
+    }
+  }
+
+  function clearEditor() {
+    document.getElementById('jsonEditor').value = '';
+    currentConfig = {};
+    renderConstraintList();
+    showToast('已清空', 'success');
+  }
+
+  // ── Constraint Form ──
+  function addConstraint() {
+    const name = document.getElementById('studentName').value.trim();
+    if (!name) { showToast('请输入学生姓名', 'error'); return; }
+
+    const parse = (s) => s.split(/[,，]/).map(x => x.trim()).filter(Boolean);
+    const withAdj = parse(document.getElementById('withAdj').value);
+    const withRange = parse(document.getElementById('withRange').value);
+    const withoutAdj = parse(document.getElementById('withoutAdj').value);
+    const withoutRange = parse(document.getElementById('withoutRange').value);
+
+    if (!withAdj.length && !withRange.length && !withoutAdj.length && !withoutRange.length) {
+      showToast('请至少填写一项约束', 'error');
+      return;
+    }
+
+    currentConfig[name] = {
+      with: { adjacency: withAdj, range: withRange },
+      without: { adjacency: withoutAdj, range: withoutRange }
+    };
+
+    document.getElementById('jsonEditor').value = JSON.stringify(currentConfig, null, 2);
+    document.getElementById('studentName').value = '';
+    document.getElementById('withAdj').value = '';
+    document.getElementById('withRange').value = '';
+    document.getElementById('withoutAdj').value = '';
+    document.getElementById('withoutRange').value = '';
+    renderConstraintList();
+    showToast(`已添加: ${name}`, 'success');
+  }
+
+  function removeConstraint(name) {
+    delete currentConfig[name];
+    document.getElementById('jsonEditor').value = JSON.stringify(currentConfig, null, 2);
+    renderConstraintList();
+    showToast(`已移除: ${name}`, 'success');
+  }
+
+  function renderConstraintList() {
+    const list = document.getElementById('constraintList');
+    const names = Object.keys(currentConfig);
+    if (names.length === 0) {
+      list.innerHTML = '<p class="help-text">暂无约束，请从 JSON 编辑器应用或使用表单添加。</p>';
+      return;
+    }
+    list.innerHTML = names.map(name => {
+      const c = currentConfig[name];
+      const parts = [];
+      if (c.with?.adjacency?.length) parts.push(`<span class="tag with">with-adj: ${c.with.adjacency.join(', ')}</span>`);
+      if (c.with?.range?.length) parts.push(`<span class="tag with">with-range: ${c.with.range.join(', ')}</span>`);
+      if (c.without?.adjacency?.length) parts.push(`<span class="tag without">without-adj: ${c.without.adjacency.join(', ')}</span>`);
+      if (c.without?.range?.length) parts.push(`<span class="tag without">without-range: ${c.without.range.join(', ')}</span>`);
+      return `
+        <div class="constraint-item">
+          <span class="name">${escHtml(name)}</span>
+          <span class="details">${parts.join('') || '<em>空约束</em>'}</span>
+          <button class="btn btn-danger btn-sm" onclick="removeConstraint('${escAttr(name)}')">删除</button>
+        </div>`;
+    }).join('');
+  }
+
+  // ── Download ──
+  function downloadConfig() {
+    const blob = new Blob([JSON.stringify(currentConfig, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'config.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('下载已开始', 'success');
+  }
+
+  // ── Toast ──
+  function showToast(msg, type) {
+    const existing = document.querySelector('.toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }
+
+  // ── Helpers ──
+  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function escAttr(s) { return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+  init();
+</script>
+</body>
+</html>
