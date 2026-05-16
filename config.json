@@ -1,12 +1,42 @@
 {
-    "小明": {
+    "王煜璞": {
         "with": {
-        "adjacency": ["小红", "小刚"],
-        "range": ["张三"]
+            "adjacency": [],
+            "range": []
         },
         "without": {
-        "adjacency": ["李四"],
-        "range": ["王五"]
+            "adjacency": [],
+            "range": ["高山","林川哲","曹玥如","王思润"]
+        }
+    },
+    "李晨一": {
+        "with": {
+            "adjacency": [],
+            "range": []
+        },
+        "without": {
+            "adjacency": ["高山","张德厚"],
+            "range": []
+        }
+    },
+    "赵艺灿": {
+        "with": {
+            "adjacency": ["刘可欣"],
+            "range": []
+        },
+        "without": {
+            "adjacency": [],
+            "range": []
+        }
+    },
+    "葛锦程": {
+        "with": {
+            "adjacency": [],
+            "range": []
+        },
+        "without": {
+            "adjacency": [],
+            "range": ["高山","吕思悦","王思润","孙文迪","毛钺棋","李若曦","李何恺","李嘉晨","史家豪","周士熙","梁思源"]
         }
     }
 }
