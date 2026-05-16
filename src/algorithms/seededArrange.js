@@ -860,10 +860,12 @@ export function seededArrange(students, nRows, nCols, aisles, mode, constraints 
     return { seatingPlan: empty, violations: [] };
   }
 
-  // ── Retry loop (up to 5 attempts) ─────────────────────────
-  const MAX_ATTEMPTS = 5;
+  // ── Retry loop (up to 100 attempts, time-boxed to <500ms) ──
+  const MAX_ATTEMPTS = 100;
+  const deadline = Date.now() + 450;
 
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    if (Date.now() > deadline) break;
     // Fresh state
     const grid = Array.from({ length: nRows }, () =>
       Array.from({ length: nCols }, () => null)
