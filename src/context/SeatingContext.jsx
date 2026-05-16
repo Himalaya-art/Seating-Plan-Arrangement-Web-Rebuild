@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback } from 'react';
 import { randomArrange } from '../algorithms/randomArrange';
 import { genderArrange } from '../algorithms/genderArrange';
+import { seededArrange } from '../algorithms/seededArrange';
 
 const SeatingContext = createContext(null);
 
@@ -41,10 +42,12 @@ export function SeatingProvider({ children }) {
     const studentsToUse = students.slice(0, totalSeats);
 
     let result;
-    if (mode === 'random') {
-      result = randomArrange(studentsToUse, nRows, nCols, aisles, constraints);
+    if (constraints && Object.keys(constraints).length > 0) {
+      result = seededArrange(studentsToUse, nRows, nCols, aisles, mode, constraints);
+    } else if (mode === 'random') {
+      result = randomArrange(studentsToUse, nRows, nCols, aisles);
     } else {
-      result = genderArrange(studentsToUse, nRows, nCols, aisles, constraints);
+      result = genderArrange(studentsToUse, nRows, nCols, aisles);
     }
 
     setSeatingPlan(result.seatingPlan);

@@ -1,5 +1,4 @@
 import { getBlockStructure } from '../utils/blockUtils';
-import { solveConstraints } from './constraintSolver';
 
 function shuffle(arr) {
   const a = [...arr];
@@ -14,7 +13,7 @@ function createEmptyPlan(nRows, nCols) {
   return Array.from({ length: nRows }, () => Array.from({ length: nCols }, () => null));
 }
 
-export function genderArrange(students, nRows, nCols, aisles, constraints = {}) {
+export function genderArrange(students, nRows, nCols, aisles) {
   const { blockWidths, blockRanges, blocksPerRow } = getBlockStructure(nCols, aisles);
 
   const males = shuffle(students.filter(s => s.gender === '男'));
@@ -97,9 +96,5 @@ export function genderArrange(students, nRows, nCols, aisles, constraints = {}) 
 
   // 如果有剩余学生但座位不够（不应出现，主流程已检查），忽略
 
-  const { plan: solvedPlan, violations } = solveConstraints(
-    plan, constraints, nRows, nCols, aisles
-  );
-
-  return { seatingPlan: solvedPlan, violations };
+  return { seatingPlan: plan, violations: [] };
 }

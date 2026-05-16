@@ -1,6 +1,3 @@
-import { getBlockStructure, getBlockPosition } from '../utils/blockUtils';
-import { solveConstraints } from './constraintSolver';
-
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -25,14 +22,10 @@ function fillPlanSequential(plan, students) {
   return plan;
 }
 
-export function randomArrange(students, nRows, nCols, aisles, constraints = {}) {
+export function randomArrange(students, nRows, nCols, aisles) {
   const plan = createEmptyPlan(nRows, nCols);
   const shuffled = shuffle(students);
   fillPlanSequential(plan, shuffled);
 
-  const { plan: solvedPlan, violations } = solveConstraints(
-    plan, constraints, nRows, nCols, aisles
-  );
-
-  return { seatingPlan: solvedPlan, violations };
+  return { seatingPlan: plan, violations: [] };
 }
