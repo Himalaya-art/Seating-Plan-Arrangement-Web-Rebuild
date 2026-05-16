@@ -6,7 +6,7 @@ Chinese-language classroom seating arrangement app. React 19 + Vite 8, single-pa
 ## Commands
 - `npm run dev` — start dev server (Vite, default `localhost:5173`)
 - `npm run build` — production build (the only verification step)
-- `npm run lint` — ESLint
+- `npm run lint` — ESLint (v10 flat config, no eslint.config.js — uses defaults)
 - `npm run preview` — preview production build
 
 ## Architecture
@@ -20,9 +20,50 @@ All state lives here via `useSeating()` hook. Key state shape:
 - `seatingPlan` — `Array<Array<{name, gender} | null>>` (nRows × nCols, 0-indexed)
 - `students` — flat array of `{name, gender}` from CSV
 - `aisles` — array of 1-indexed column positions (e.g. `[2,5]` means aisles after cols 2 and 5)
-- `constraints` — parsed `config.json` object, keyed by student name
+- `constraints` — parsed config.json object, keyed by student name
 - `selectedSeat` — `{row, col}` for click-to-swap
 - Changing rows/cols auto-resets the plan via `resetPlan()`
+
+### Algorithm routing (`generatePlan`)
+```
+constraints exist? ──Yes──→ seededArrange(students, nRows, nCols, aisles, mode, constraints)
+     │
+     No
+     ├── mode='gender' ──→ genderArrange(students, nRows, nCols, aisles)
+     └── mode='random'  ──→ randomArrange(students, nRows, nCols, aisles)
+```
+- `seededArrange` is the only function that takes/uses constraints. The other two are kept pure for the zero-constraint fast path.
+- `seededArrange` internally falls back to `randomArrange` / `genderArrange` when constraints object is empty.
+
+### Algorithm files
+- `src/algorithms/seededArrange.js` — constructive seed-placement engine (921 lines). Used when constraints present.
+- `src/algorithms/randomArrange.js` — simple shuffle + fill (31 lines). No constraint logic.
+- `src/algorithms/genderArrange.js` — fills by block, alternating male/female blocks (100 lines). No constraint logic.
+
+### Constraint solving — `seededArrange.js`
+
+**Approach**: Constructive seed placement (NOT post-hoc swapping). Places the most-constrained students first, then fills remaining seats.
+
+**Flow** (per attempt):
+1. **Place seeds**: BFS queue processes constraint entries. "with" targets are placed recursively; "without" entries push exclusions onto a per-position exclusion map. Gender mode propagates block-gender locks.
+2. **Fill remaining**: Unconstrained students randomly fill eligible empty seats (respecting exclusion maps and gender locks).
+3. **Validate**: Check all constraints against final grid.
+
+**Retry**: Up to 100 attempts, time-boxed to 450ms. Returns `{ seatingPlan, violations }` — on success `violations` is `[]`, on failure `seatingPlan` is `null`.
+
+**Critical helper**: `canPlaceWithTargets()` validates that multiple "with" targets aren't competing for the same seat (uses `Set.size >= targets.length`).
+
+**config.json format** (root or `public/data/`):
+```json
+{
+    "小明": {
+        "with": { "adjacency": ["小红", "小刚"], "range": ["张三"] },
+        "without": { "adjacency": ["李四"], "range": ["王五"] }
+    }
+}
+```
+- **adjacency**: same row, same horizontal block
+- **range**: same block position across current + adjacent rows
 
 ### Critical indexing rule — blockUtils.js
 **Aisles are 1-indexed** (user-facing column numbers). The seating grid and `blockRanges` are **0-indexed** internally. `getBlockStructure()` handles the conversion. `getBlockPosition(col, aisles)` expects 0-indexed `col` and 1-indexed `aisles` — the comparison `col < aisle` is correct for this mixed scheme.
@@ -50,14 +91,6 @@ Sample data is at `public/data/sampleStudents.csv`, fetched at runtime via `/dat
 ### CSS conventions
 Each component folder has its own CSS file, imported by the component. Some CSS files live at the parent level and are shared by sibling components (e.g. `components/ConfigPanel.css` imported by all `components/ConfigPanel/*.jsx`). CSS class naming uses BEM-ish conventions (`.seat-male`, `.seat-female`, `.mode-option.active`).
 
-### Constraint solving
-`src/algorithms/constraintSolver.js` — iterative improvement up to 2000 rounds. Two region types:
-- **adjacency**: same row, same horizontal block
-- **range**: same block position across current + previous + next rows (with wrap-around)
-- "with" constraints: target student must be in the region; solver tries swapping them in
-- "without" constraints: target student must NOT be in the region; solver swaps them out
-- `getOutsideSeats()` is called fresh each violation check (not a stale snapshot)
-
 ### Export
 - CSV: raw string with BOM for UTF-8
 - Excel: `xlsx` library (SheetJS)
@@ -66,3 +99,4 @@ Each component folder has its own CSS file, imported by the component. Some CSS 
 ### Dependencies worth noting
 - `xlsx` — large (bulk of the ~530KB main bundle); consider dynamic import if size matters
 - `@dnd-kit/core` — drag-and-drop; `@dnd-kit/sortable` and `@dnd-kit/utilities` are installed but only `core` is actively used
+- ESLint v10 with `eslint-plugin-react-hooks` and `eslint-plugin-react-refresh`, but no eslint.config.js exists — config is implicit (flat config defaults)

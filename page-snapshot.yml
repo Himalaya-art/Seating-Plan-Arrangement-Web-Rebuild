@@ -1,0 +1,54 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e6]: 🏫 班级座位表排位系统
+    - generic [ref=e7]:
+      - button "📄 导出 CSV" [disabled] [ref=e8]
+      - button "📊 导出 Excel" [disabled] [ref=e9]
+      - button "🖼️ 导出 PNG" [disabled] [ref=e10]
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - heading "配置面板" [level=2] [ref=e13]
+      - generic [ref=e14]:
+        - heading "📋 学生名单" [level=3] [ref=e15]
+        - generic [ref=e16]:
+          - button "选择 CSV 文件" [ref=e17] [cursor=pointer]
+          - button "加载样例" [ref=e18] [cursor=pointer]
+          - generic [ref=e19]: 或拖放文件到下方文本框
+        - textbox "姓名,性别 张三,男 小红,女 ..." [ref=e20]:
+          - /placeholder: "姓名,性别\n张三,男\n小红,女\n..."
+        - generic [ref=e21]:
+          - button "解析文本" [ref=e22] [cursor=pointer]
+          - button "导出学生 CSV" [disabled] [ref=e23]
+      - generic [ref=e24]:
+        - heading "📐 座位表规格" [level=3] [ref=e25]
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - text: 行数：
+            - spinbutton "行数：" [ref=e28]: "8"
+          - generic [ref=e29]:
+            - text: 列数：
+            - spinbutton "列数：" [ref=e30]: "7"
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - text: 过道位置（在第几列之后，逗号分隔）：
+            - textbox "过道位置（在第几列之后，逗号分隔）：" [ref=e33]:
+              - /placeholder: 例如：2, 5
+          - generic [ref=e34]: 过道位置需在 1 ~ 6 之间
+      - generic [ref=e35]:
+        - heading "⚙️ 生成模式" [level=3] [ref=e36]
+        - generic [ref=e37]:
+          - generic [ref=e38] [cursor=pointer]:
+            - radio "随机排位 所有学生随机填入座位" [checked] [ref=e39]
+            - generic [ref=e40]:
+              - strong [ref=e41]: 随机排位
+              - generic [ref=e42]: 所有学生随机填入座位
+          - generic [ref=e43] [cursor=pointer]:
+            - radio "按过道分离男女 每个块内性别一致，至多一个混合块" [ref=e44]
+            - generic [ref=e45]:
+              - strong [ref=e46]: 按过道分离男女
+              - generic [ref=e47]: 每个块内性别一致，至多一个混合块
+        - button "🎲 生成座位表" [ref=e48] [cursor=pointer]
+        - generic [ref=e49]:
+          - heading "配置文件 (config.json)" [level=4] [ref=e50]
+          - button "加载 config.json" [ref=e52] [cursor=pointer]
+    - generic [ref=e54]: 请先导入学生名单并点击「生成座位表」

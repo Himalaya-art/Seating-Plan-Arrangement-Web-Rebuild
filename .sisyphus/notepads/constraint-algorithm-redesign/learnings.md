@@ -76,3 +76,14 @@ Even though `seededArrange` has an internal fallback for no-constraints case, th
 
 ### VERDICT: APPROVE
 No regressions detected. Algorithm refactor preserves all existing no-constraint functionality.
+
+## ConflictDialog.css Tokenization (2026-05-17)
+- Replaced all hardcoded design values with design tokens from src/index.css
+- --color-danger (#C62828) replacing #dc3545 — warmer red fits palette
+- --color-neutral-500 (#6B7280) replacing #666 — slightly warmer gray
+- --color-neutral-700 (#404040) replacing #333 — better contrast ratio
+- --text-sm is 14px, was 13px — slight bump improves readability
+- --space-xs is 4px, was 6px — tighter vertical padding on conflict items
+- --shadow-lg uses 0.15 alpha vs original 0.2 — softer shadow
+- --space-md (16px) replaced 12px margins — more generous spacing
+- Only #fff and structural values (500px, 300px, 80vh, 20px) left untokenized intentionally
