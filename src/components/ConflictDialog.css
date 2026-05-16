@@ -1,0 +1,59 @@
+.conflict-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.conflict-dialog {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.conflict-dialog h3 {
+  margin: 0 0 8px 0;
+  color: #dc3545;
+  font-size: 18px;
+}
+
+.conflict-dialog p {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.conflict-list {
+  margin: 0;
+  padding: 0 0 0 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.conflict-item {
+  padding: 6px 0;
+  font-size: 13px;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.conflict-item:last-child {
+  border-bottom: none;
+}
+
+.conflict-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
