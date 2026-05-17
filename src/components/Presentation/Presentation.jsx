@@ -18,7 +18,15 @@ export default function Presentation() {
     aisles,
     animationMode,
     generatePlan,
+    resetPlan,
   } = useSeating();
+
+  /* ── Clean slate on mount ─────────────── */
+  useEffect(() => {
+    resetPlan();
+    setHasRevealed(false);
+    setRevealedSeats(new Set());
+  }, []);
 
   /* ── Cleanup on unmount ──────────────── */
   useEffect(() => {
@@ -194,10 +202,10 @@ export default function Presentation() {
     for (let i = 0; i < blockRanges.length; i++) {
       const { start, end } = blockRanges[i];
       for (let c = start; c <= end; c++) {
-        gridCols.push('80px');
+        gridCols.push('120px');
       }
       if (i < blockRanges.length - 1) {
-        gridCols.push('20px');
+        gridCols.push('28px');
       }
     }
 
@@ -268,7 +276,7 @@ export default function Presentation() {
         </>
       ) : (
         <>
-          <div className="podium">讲台</div>
+          {hasRevealed && <div className="podium">讲台</div>}
           {renderGrid()}
 
           {!hasRevealed && !isAnimating && (
