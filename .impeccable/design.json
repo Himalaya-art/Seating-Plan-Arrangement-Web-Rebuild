@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-17T03:42:00.000Z",
+  "title": "Design System: 班级座位表排位系统",
+  "extensions": {
+    "colorMeta": {
+      "slate-blue-gray":      { "role": "primary",  "displayName": "石板灰蓝",    "canonical": "oklch(47% 0.03 260)", "tonalRamp": ["oklch(20% 0.02 260)", "oklch(25% 0.02 260)", "oklch(32% 0.03 260)", "oklch(39% 0.03 260)", "oklch(47% 0.03 260)", "oklch(65% 0.02 260)", "oklch(80% 0.01 260)", "oklch(93% 0.005 260)"] },
+      "deep-slate":           { "role": "primary",  "displayName": "深石板",      "canonical": "oklch(39% 0.03 260)", "tonalRamp": [] },
+      "slate-mist":           { "role": "primary",  "displayName": "石板薄雾",    "canonical": "oklch(93% 0.005 260)", "tonalRamp": [] },
+      "slate-border":         { "role": "primary",  "displayName": "石板边框",    "canonical": "oklch(78% 0.02 260)", "tonalRamp": [] },
+      "sage-green":           { "role": "secondary","displayName": "鼠尾草绿",    "canonical": "oklch(52% 0.06 180)", "tonalRamp": ["oklch(20% 0.04 180)", "oklch(28% 0.05 180)", "oklch(36% 0.06 180)", "oklch(44% 0.06 180)", "oklch(52% 0.06 180)", "oklch(68% 0.04 180)", "oklch(82% 0.02 180)", "oklch(94% 0.01 180)"] },
+      "deep-sage":            { "role": "secondary","displayName": "深鼠尾草",    "canonical": "oklch(44% 0.06 180)", "tonalRamp": [] },
+      "sage-mist":            { "role": "secondary","displayName": "鼠尾草雾",    "canonical": "oklch(94% 0.01 180)", "tonalRamp": [] },
+      "chalk-white":          { "role": "neutral",  "displayName": "粉笔白",      "canonical": "oklch(98% 0.002 260)", "tonalRamp": [] },
+      "light-frost":          { "role": "neutral",  "displayName": "浅霜",        "canonical": "oklch(95% 0.003 260)", "tonalRamp": [] },
+      "frost-gray":           { "role": "neutral",  "displayName": "霜灰",        "canonical": "oklch(91% 0.004 260)", "tonalRamp": [] },
+      "mist-gray":            { "role": "neutral",  "displayName": "雾灰",        "canonical": "oklch(84% 0.005 260)", "tonalRamp": [] },
+      "stone-gray":           { "role": "neutral",  "displayName": "石灰色",      "canonical": "oklch(54% 0.01 260)", "tonalRamp": [] },
+      "ink-gray":             { "role": "neutral",  "displayName": "墨灰",        "canonical": "oklch(34% 0.01 260)", "tonalRamp": [] },
+      "inkstone-black":       { "role": "neutral",  "displayName": "砚黑",        "canonical": "oklch(18% 0.01 260)", "tonalRamp": [] },
+      "male-sky":             { "role": "data",     "displayName": "天空蓝",      "canonical": "oklch(95% 0.02 250)", "tonalRamp": [] },
+      "female-rose":          { "role": "data",     "displayName": "玫瑰粉",      "canonical": "oklch(95% 0.02 10)", "tonalRamp": [] },
+      "amber-gold":           { "role": "state",    "displayName": "琥珀金",      "canonical": "oklch(75% 0.14 90)", "tonalRamp": [] }
+    },
+    "typographyMeta": {
+      "body":  { "displayName": "Body",  "purpose": "Default body text. Used for labels, buttons, inputs, and prose. 14px system font stack." },
+      "title": { "displayName": "Title", "purpose": "Panel headings only (h2). 18px semi-bold. Not used in presentation mode." },
+      "label": { "displayName": "Label", "purpose": "Seat names, hints, auxiliary text. 12px regular. Legible in dense grid." }
+    },
+    "shadows": [
+      { "name": "ambient-low", "value": "0 1px 3px rgba(0,0,0,0.08)", "purpose": "Seat hover micro-lift. Barely perceptible." },
+      { "name": "interaction", "value": "0 4px 16px rgba(0,0,0,0.1)", "purpose": "Dragging seat float. Visibly elevated." },
+      { "name": "modal-overlay","value": "0 8px 32px rgba(0,0,0,0.15)", "purpose": "Conflict dialog. Maximum elevation." }
+    ],
+    "motion": [
+      { "name": "ease-standard",  "value": "200ms ease-out",                        "purpose": "Button hover, border transitions, tab switches." },
+      { "name": "ease-flip",     "value": "400ms cubic-bezier(0.25, 0.8, 0.25, 1)", "purpose": "Card flip animation timing." },
+      { "name": "ease-fade",     "value": "600ms cubic-bezier(0.25, 0.8, 0.25, 1)", "purpose": "Row fade animation timing." },
+      { "name": "ease-bounce",   "value": "500ms cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Bounce pop overshoot. The only overshoot curve in the system." },
+      { "name": "ease-scan",     "value": "300ms cubic-bezier(0.25, 0.8, 0.25, 1)", "purpose": "Clip-path scan reveal timing." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action button in config mode. Slate blue-gray, white text, 4px radius.",
+      "html": "<button class=\"ds-btn-primary\">生成座位表</button>",
+      "css": ".ds-btn-primary { background: #4F5D75; color: #fff; border: 1px solid #4F5D75; border-radius: 4px; padding: 8px 16px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; } .ds-btn-primary:hover { background: #3D4A5F; border-color: #3D4A5F; } .ds-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Base Button",
+      "kind": "button",
+      "refersTo": "button-base",
+      "description": "Neutral secondary button. White bg, mist-gray border, frost-gray on hover.",
+      "html": "<button class=\"ds-btn-base\">加载样例</button>",
+      "css": ".ds-btn-base { background: #fff; color: #404040; border: 1px solid #CCCCCC; border-radius: 4px; padding: 8px 16px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; } .ds-btn-base:hover { background: #F2F2F2; border-color: #B0BEC5; } .ds-btn-base:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Destructive action. Red bg, white text. Used for clear seating plan.",
+      "html": "<button class=\"ds-btn-danger\">🗑️ 清除当前座位</button>",
+      "css": ".ds-btn-danger { background: #C62828; color: #fff; border: 1px solid #C62828; border-radius: 4px; padding: 8px 16px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; cursor: pointer; transition: background-color 0.2s; } .ds-btn-danger:hover { background: #A01E1E; } .ds-btn-danger:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Reveal Button (Dark)",
+      "kind": "button",
+      "refersTo": "reveal-btn",
+      "description": "Presentation mode CTA. Sage green on dark #14181E bg. The only accent in dark context.",
+      "html": "<button class=\"ds-reveal-btn\">🎲 揭晓座位</button>",
+      "css": ".ds-reveal-btn { background: #5B7B6F; color: #fff; border: 1px solid #5B7B6F; border-radius: 4px; padding: 16px 32px; font-size: 16px; min-width: 200px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; cursor: pointer; transition: background-color 0.2s, opacity 0.2s; } .ds-reveal-btn:hover { background: #4A6A5E; } .ds-reveal-btn:disabled { opacity: 0.4; cursor: not-allowed; }"
+    },
+    {
+      "name": "Seat (Male)",
+      "kind": "custom",
+      "refersTo": "seat-male",
+      "description": "Female student seat card. Sky blue bg with matching border, 6px radius.",
+      "html": "<div class=\"ds-seat-male\"><span>张三</span></div>",
+      "css": ".ds-seat-male { width: 80px; height: 44px; background: #E8F0FE; border: 2px solid #A8C8FA; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #1A3A5C; user-select: none; cursor: grab; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; }"
+    },
+    {
+      "name": "Seat (Female)",
+      "kind": "custom",
+      "refersTo": "seat-female",
+      "description": "Female student seat card. Rose pink bg with matching border, 6px radius.",
+      "html": "<div class=\"ds-seat-female\"><span>小红</span></div>",
+      "css": ".ds-seat-female { width: 80px; height: 44px; background: #FCE4EC; border: 2px solid #F48FB1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #5C1A2A; user-select: none; cursor: grab; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; }"
+    },
+    {
+      "name": "Number Input",
+      "kind": "input",
+      "refersTo": "input-number",
+      "description": "Numeric input for row/col count. Fixed 60px width, 4px radius.",
+      "html": "<input class=\"ds-input-number\" type=\"number\" value=\"8\">",
+      "css": ".ds-input-number { width: 60px; padding: 4px 8px; border: 1px solid #CCCCCC; border-radius: 4px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; color: #404040; background: #fff; } .ds-input-number:focus { outline: none; border-color: #4F5D75; }"
+    },
+    {
+      "name": "Tab Navigation",
+      "kind": "nav",
+      "refersTo": "tab-bar",
+      "description": "Top tab toggle between config and presentation mode.",
+      "html": "<nav class=\"ds-tab-bar\"><button class=\"ds-tab active\">⚙️ 配置</button><button class=\"ds-tab\">🎭 展示</button></nav>",
+      "css": ".ds-tab-bar { display: flex; justify-content: center; gap: 8px; padding: 4px 0; background: #F2F2F2; border-bottom: 1px solid #E5E5E5; } .ds-tab { padding: 4px 16px; border: none; background: none; font-size: 14px; color: #6B7280; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; } .ds-tab:hover { color: #404040; } .ds-tab.active { color: #4F5D75; border-bottom-color: #4F5D75; font-weight: 600; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "静谧课堂 (The Quiet Classroom)",
+    "overview": "一个教师在清晨走进教室，阳光透过绿色窗帘洒在灰蓝色墙面上。空气安静，黑板干净，第一排课桌等待着学生的名字。这个工具置身其中：温和、井然有序、不打扰思考。配色系统以石板灰蓝作为主色调，鼠尾草绿作为点缀——两种颜色都源于教室的自然环境。配置模式是教师在办公室的专注工具：浅色背景、清晰分区、操作路径最短。展示模式是课堂上的高光时刻：深色沉浸式背景、唯一的焦点按钮、四种揭晓动画。",
+    "keyCharacteristics": [
+      "温和中性色偏移，始终带暖色调（无冷灰、纯白、纯黑）",
+      "扁平表面静止，阴影仅在交互反馈时出现",
+      "小圆角（4px 为主）、清晰边框，工具感为主",
+      "配置模式清晰分区，展示模式凝聚焦点",
+      "性别色彩（淡蓝 / 淡粉）作为数据可视化，不作为装饰"
+    ],
+    "rules": [
+      { "name": "The Accent Discipline Rule", "body": "鼠尾草绿仅在展示模式的揭晓按钮上使用。配置模式的所有操作按钮使用石板灰蓝。两个颜色不在同一屏幕上同时作为主操作色。", "section": "colors" },
+      { "name": "The No Pure Black/White Rule", "body": "#fff 仅用于白色文字对照在深色按钮上，#000 不出现在任何位置。所有中性色从粉笔白到砚黑都带暖色调偏移。", "section": "colors" },
+      { "name": "The Single Family Rule", "body": "整个应用使用同一套字体栈。标题不切换字体族，仅通过尺寸和字重区分层次。", "section": "typography" },
+      { "name": "The Fixed Scale Rule", "body": "字号固定（12/14/16/18/20 px），不使用 clamp() 或 vw 单位。配置模式和展示模式共享相同的文字尺寸。", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "表面静止时平坦。阴影仅作为状态响应出现（hover、drag、focus-overlay）。没有任何静态卡片自带投影。", "section": "elevation" },
+      { "name": "The One Primary Rule", "body": "任何屏幕上只有一个按钮使用 primary/accent 背景色。配置模式的生成按钮使用石板灰蓝；展示模式的揭晓按钮使用鼠尾草绿。其余按钮使用 base 或 secondary 样式。", "section": "components" }
+    ],
+    "dos": [
+      "Do 使用 CSS 自定义属性引用颜色（var(--color-*)），不要硬编码颜色值",
+      "Do 保持按钮层次：每屏只有一个 primary/accent 按钮",
+      "Do 使用系统字体栈，不引入 web font",
+      "Do 通过背景色深浅区分层次，阴影仅用于交互反馈",
+      "Do 配置模式用石板灰蓝，展示模式用鼠尾草绿作为操作色"
+    ],
+    "donts": [
+      "Don't 使用纯黑 #000 或纯白 #fff 作为背景色",
+      "Don't 引入超过 2px 的 border-left/border-right 作为装饰条纹",
+      "Don't 使用 background-clip: text 渐变文字效果",
+      "Don't 使用毛玻璃效果（backdrop-filter blur）作为默认卡片样式",
+      "Don't 引入儿童化卡通风格：彩虹色、卡通贴纸、过度装饰的圆角",
+      "Don't 模仿传统企业后台的深蓝仪表盘配色",
+      "Don't 堆叠白色阴影卡片",
+      "Don't 在动画中使用 bounce 或 elastic 缓动作为通用过渡"
+    ]
+  }
+}
