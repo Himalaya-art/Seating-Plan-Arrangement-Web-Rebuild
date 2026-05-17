@@ -7,8 +7,8 @@
 .presentation-view {
   --present-bg: #14181E;
   --present-text: #E8ECF1;
-  --present-text-muted: #6B7280;
-  --present-accent: var(--color-accent, #5B7B6F);
+  --present-text-muted: var(--color-neutral-500);
+  --present-accent: var(--color-accent);
 }
 
 /* ── Viewport layout ──────────────────── */
@@ -83,15 +83,15 @@
 
 /* ── Gender colors ────────────────────── */
 .present-seat.male {
-  background: #E8F0FE;
-  border: 1px solid #A8C8FA;
-  color: #1A3A5C;
+  background: var(--color-male-bg);
+  border: 1px solid var(--color-male-border);
+  color: var(--color-male-text);
 }
 
 .present-seat.female {
-  background: #FCE4EC;
-  border: 1px solid #F48FB1;
-  color: #5C1A2A;
+  background: var(--color-female-bg);
+  border: 1px solid var(--color-female-border);
+  color: var(--color-female-text);
 }
 
 /* ── Empty seat ───────────────────────── */
@@ -149,13 +149,13 @@
 /* ── Primary button override ──────────── */
 .presentation-view .btn-primary {
   background: var(--present-accent);
-  color: #fff;
+  color: var(--color-white);
   border-color: var(--present-accent);
 }
 
 .presentation-view .btn-primary:hover:not(:disabled) {
-  background: var(--color-accent-hover, #4A6A5E);
-  border-color: var(--color-accent-hover, #4A6A5E);
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 /* ── Reveal CTA (large) ───────────────── */

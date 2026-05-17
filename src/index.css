@@ -22,6 +22,8 @@
   --color-neutral-700: #404040;
   --color-neutral-900: #1A1A1A;
 
+  --color-white: #FFFFFF;
+
   --color-success: #2D7A46;
   --color-success-bg: #E8F5E9;
   --color-warning: #8A6D14;
@@ -32,11 +34,13 @@
 
   --color-male-bg: #E8F0FE;
   --color-male-border: #A8C8FA;
+  --color-male-text: #1A3A5C;
   --color-female-bg: #FCE4EC;
   --color-female-border: #F48FB1;
+  --color-female-text: #5C1A2A;
 
-  --color-selected-border: #D4A017;
-  --color-selected-glow: #E8C547;
+  --color-selected-border: var(--color-accent);
+  --color-selected-glow: rgba(91, 123, 111, 0.25);
 
   /* ── Typography Scale ────────────────────── */
   --text-xs: 12px;
@@ -44,6 +48,10 @@
   --text-base: 16px;
   --text-lg: 18px;
   --text-xl: 20px;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
 
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 
