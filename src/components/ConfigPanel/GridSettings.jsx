@@ -3,7 +3,7 @@ import { useSeating } from '../../context/SeatingContext';
 import '../ConfigPanel.css';
 
 export default function GridSettings() {
-  const { nRows, setNRows, nCols, setNCols, aisles, setAisles } = useSeating();
+  const { nRows, setNRows, nCols, setNCols, aisles, setAisles, animationMode, setAnimationMode } = useSeating();
   const [rawAislesText, setRawAislesText] = useState(aisles.join(', '));
   const parseTimer = useRef(null);
 
@@ -84,6 +84,21 @@ export default function GridSettings() {
           />
         </label>
         <span className="hint">过道位置需在 1 ~ {nCols - 1} 之间</span>
+      </div>
+      <div className="anim-input">
+        <label>
+          揭晓动画：
+          <select
+            value={animationMode}
+            onChange={e => setAnimationMode(e.target.value)}
+            className="input-select"
+          >
+            <option value="flip">🃏 翻转卡片</option>
+            <option value="fade">📖 逐行渐显</option>
+            <option value="bounce">💥 跳跃弹出</option>
+            <option value="scan">🌊 扫描揭示</option>
+          </select>
+        </label>
       </div>
     </div>
   );

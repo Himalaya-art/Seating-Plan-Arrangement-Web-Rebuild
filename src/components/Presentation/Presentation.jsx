@@ -5,7 +5,6 @@ import '../Presentation.css';
 
 export default function Presentation() {
   /* ── Local state ──────────────────────── */
-  const [animationMode, setAnimationMode] = useState('flip'); // 'flip'|'fade'|'bounce'|'scan'
   const [isAnimating, setIsAnimating] = useState(false);
   const [hasRevealed, setHasRevealed] = useState(false);
   const [revealedSeats, setRevealedSeats] = useState(new Set());
@@ -17,6 +16,7 @@ export default function Presentation() {
     seatingPlan,
     nCols,
     aisles,
+    animationMode,
     generatePlan,
   } = useSeating();
 
@@ -268,45 +268,6 @@ export default function Presentation() {
         </>
       ) : (
         <>
-          <div className="mode-selector">
-            <label className={`mode-option ${animationMode === 'flip' ? 'active' : ''}`}>
-              <input type="radio" name="animMode" value="flip"
-                checked={animationMode === 'flip'}
-                onChange={() => { if (!isAnimating) setAnimationMode('flip'); }} />
-              <span className="mode-label">
-                <strong>🃏 翻转卡片</strong>
-                <small>3D 翻转逐座揭示</small>
-              </span>
-            </label>
-            <label className={`mode-option ${animationMode === 'fade' ? 'active' : ''}`}>
-              <input type="radio" name="animMode" value="fade"
-                checked={animationMode === 'fade'}
-                onChange={() => { if (!isAnimating) setAnimationMode('fade'); }} />
-              <span className="mode-label">
-                <strong>📖 逐行渐显</strong>
-                <small>一行行依次淡入</small>
-              </span>
-            </label>
-            <label className={`mode-option ${animationMode === 'bounce' ? 'active' : ''}`}>
-              <input type="radio" name="animMode" value="bounce"
-                checked={animationMode === 'bounce'}
-                onChange={() => { if (!isAnimating) setAnimationMode('bounce'); }} />
-              <span className="mode-label">
-                <strong>💥 跳跃弹出</strong>
-                <small>随机顺序弹出</small>
-              </span>
-            </label>
-            <label className={`mode-option ${animationMode === 'scan' ? 'active' : ''}`}>
-              <input type="radio" name="animMode" value="scan"
-                checked={animationMode === 'scan'}
-                onChange={() => { if (!isAnimating) setAnimationMode('scan'); }} />
-              <span className="mode-label">
-                <strong>🌊 扫描揭示</strong>
-                <small>光带从左扫到右</small>
-              </span>
-            </label>
-          </div>
-
           <div className="podium">讲台</div>
           {renderGrid()}
 

@@ -17,6 +17,7 @@ export function SeatingProvider({ children }) {
   const [isConfigLoaded, setIsConfigLoaded] = useState(false);
   const [studentCountWarning, setStudentCountWarning] = useState('');
   const [selectedSeat, setSelectedSeat] = useState(null);
+  const [animationMode, setAnimationMode] = useState('flip'); // flip|fade|bounce|scan
 
   const resetPlan = useCallback(() => {
     setSeatingPlan(null);
@@ -131,6 +132,7 @@ export function SeatingProvider({ children }) {
     isConfigLoaded, setIsConfigLoaded,
     studentCountWarning,
     selectedSeat,
+    animationMode, setAnimationMode,
     generatePlan,
     swapSeats,
     handleSeatClick,
