@@ -24,7 +24,9 @@
         "高山",
         "张德厚"
       ],
-      "range": []
+      "range": [
+        "赵艺灿"
+      ]
     }
   },
   "赵艺灿": {
@@ -32,11 +34,15 @@
       "adjacency": [
         "刘可欣"
       ],
-      "range": []
+      "range": [
+        "王梓潼"
+      ]
     },
     "without": {
       "adjacency": [],
-      "range": []
+      "range": [
+        "田棋戈"
+      ]
     }
   },
   "葛锦程": {
@@ -74,6 +80,18 @@
     "without": {
       "adjacency": [],
       "range": []
+    }
+  },
+  "王梓潼": {
+    "with": {
+      "adjacency": [],
+      "range": []
+    },
+    "without": {
+      "adjacency": [],
+      "range": [
+        "田棋戈"
+      ]
     }
   }
 }
