@@ -20,7 +20,7 @@
   min-height: 100vh;
   background: var(--present-bg);
   color: var(--present-text);
-  padding: var(--space-md);
+  padding: var(--space-lg);
 }
 
 /* ── Title & meta ─────────────────────── */
@@ -59,13 +59,13 @@
 
 /* ── Seat base ────────────────────────── */
 .present-seat {
-  width: 120px;
-  height: 66px;
+  width: 80px;
+  height: 44px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--text-base);
+  font-size: var(--text-xs);
   cursor: default;
   box-sizing: border-box;
 
@@ -106,7 +106,7 @@
 
 /* ── Aisle spacer ─────────────────────── */
 .present-aisle {
-  width: 28px;
+  width: 20px;
 }
 
 /* ── Podium ───────────────────────────── */
@@ -119,7 +119,7 @@
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-sm);
   width: 100%;
-  max-width: 880px;
+  max-width: 560px;
   box-sizing: border-box;
 }
 
@@ -166,10 +166,11 @@
   border-radius: var(--radius-sm);
 }
 
-/* ── Reveal-again (smaller) ───────────── */
+/* ── Reveal-again (same size as reveal) ── */
 .presentation-view .reveal-again-btn {
-  padding: var(--space-sm) var(--space-lg);
-  font-size: var(--text-sm);
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--text-base);
+  min-width: 200px;
   margin-top: var(--space-lg);
   border-radius: var(--radius-sm);
 }
