@@ -1,14 +1,14 @@
 {
   "schema_version": 2,
-  "active_work_id": "constraint-algorithm-redesign-d3aeb12e",
+  "active_work_id": "presentation-page-2e119ff5",
   "works": {
-    "constraint-algorithm-redesign-d3aeb12e": {
-      "work_id": "constraint-algorithm-redesign-d3aeb12e",
-      "active_plan": "D:\\Users\\Himal\\Documents\\Project\\Seating-Plan-Arrangement-Web-Rebuild\\.sisyphus\\plans\\constraint-algorithm-redesign.md",
-      "plan_name": "constraint-algorithm-redesign",
+    "presentation-page-2e119ff5": {
+      "work_id": "presentation-page-2e119ff5",
+      "active_plan": "D:\\Users\\Himal\\Documents\\Project\\Seating-Plan-Arrangement-Web-Rebuild\\.sisyphus\\plans\\presentation-page.md",
+      "plan_name": "presentation-page",
       "status": "completed",
-      "started_at": "2026-05-16T16:19:49.196Z",
-      "updated_at": "2026-05-16T17:19:40.366Z",
+      "started_at": "2026-05-17T01:48:12.149Z",
+      "updated_at": "2026-05-17T02:44:47.416Z",
       "session_ids": [
         "ses_1ce8e4ed7ffeqMcJ5I4k35Yzu9"
       ],
@@ -20,100 +20,200 @@
         "todo:1": {
           "task_key": "todo:1",
           "task_label": "1",
-          "task_title": "编写 `seededArrange.js` — 数据模型与工具函数",
-          "session_id": "ses_1ce673924ffenqK3AGomtpd0xR",
+          "task_title": "App.jsx — 标签切换 + 条件渲染",
+          "session_id": "ses_1cc5fe504ffeXrch00N81K5cjD",
           "agent": "Sisyphus-Junior",
-          "category": "deep",
-          "started_at": "2026-05-16T16:30:55.383Z",
+          "category": "quick",
+          "updated_at": "2026-05-17T01:58:33.459Z",
+          "started_at": "2026-05-17T01:53:24.814Z",
           "status": "completed",
-          "updated_at": "2026-05-16T16:48:17.058Z",
-          "ended_at": "2026-05-16T16:48:17.057Z",
-          "elapsed_ms": 1041674
+          "ended_at": "2026-05-17T01:58:33.458Z",
+          "elapsed_ms": 308644
+        },
+        "todo:3": {
+          "task_key": "todo:3",
+          "task_label": "3",
+          "task_title": "Presentation.jsx 骨架 — 状态管理 + 空状态 + 基础网格",
+          "session_id": "ses_1cc55d31affeEstVcDaAJ469u7",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-05-17T02:09:40.168Z",
+          "started_at": "2026-05-17T02:03:18.378Z",
+          "status": "completed",
+          "ended_at": "2026-05-17T02:09:40.168Z",
+          "elapsed_ms": 381790
         },
         "todo:4": {
           "task_key": "todo:4",
           "task_label": "4",
-          "task_title": "精简 `randomArrange.js` — 仅保留无约束路径",
-          "session_id": "ses_1ce4f2aa7ffephLH4ZfamYOK8L",
+          "task_title": "动画 — 翻转卡片",
+          "session_id": "ses_1cc4c5b97ffe7vvb3q2goAmuaB",
           "agent": "Sisyphus-Junior",
-          "category": "quick",
-          "updated_at": "2026-05-16T16:52:03.600Z",
-          "started_at": "2026-05-16T16:49:57.659Z",
+          "category": "visual-engineering",
+          "updated_at": "2026-05-17T02:14:03.895Z",
+          "started_at": "2026-05-17T02:13:36.701Z",
           "status": "completed",
-          "ended_at": "2026-05-16T16:52:03.600Z",
-          "elapsed_ms": 125941
+          "ended_at": "2026-05-17T02:14:03.895Z",
+          "elapsed_ms": 27194
+        },
+        "todo:5": {
+          "task_key": "todo:5",
+          "task_label": "5",
+          "task_title": "动画 — 逐行渐显",
+          "session_id": "ses_1cc48f529ffeP4S6jBhZeTdIx5",
+          "agent": "Sisyphus-Junior",
+          "started_at": "2026-05-17T02:15:10.955Z",
+          "status": "completed",
+          "updated_at": "2026-05-17T02:17:56.071Z",
+          "ended_at": "2026-05-17T02:17:56.071Z",
+          "elapsed_ms": 165116
+        },
+        "todo:8": {
+          "task_key": "todo:8",
+          "task_label": "8",
+          "task_title": "模式选择器 + 重新揭晓 + 边缘情况整合",
+          "session_id": "ses_1cc448470ffeJuWp6G5C0IojE8",
+          "agent": "Sisyphus-Junior",
+          "category": "visual-engineering",
+          "updated_at": "2026-05-17T02:23:39.723Z",
+          "started_at": "2026-05-17T02:23:19.170Z",
+          "status": "completed",
+          "ended_at": "2026-05-17T02:23:39.723Z",
+          "elapsed_ms": 20553
+        },
+        "todo:9": {
+          "task_key": "todo:9",
+          "task_label": "9",
+          "task_title": "Playwright 端到端验证",
+          "session_id": "ses_1cc4049efffeQWw2DZF6gtwYov",
+          "agent": "Sisyphus-Junior",
+          "category": "unspecified-high",
+          "updated_at": "2026-05-17T02:32:44.619Z",
+          "started_at": "2026-05-17T02:32:33.718Z",
+          "status": "completed",
+          "ended_at": "2026-05-17T02:32:44.619Z",
+          "elapsed_ms": 10901
         },
         "final-wave:f1": {
           "task_key": "final-wave:f1",
           "task_label": "F1",
-          "task_title": "**约束场景端到端测试** — `unspecified-high` (+ `playwright`)",
-          "session_id": "ses_1ce4a7702fferiWojTI0FrMIIB",
-          "agent": "Sisyphus-Junior",
-          "category": "unspecified-high",
-          "updated_at": "2026-05-16T17:19:06.941Z",
-          "started_at": "2026-05-16T17:18:55.427Z",
+          "task_title": "**Plan Compliance Audit** — `oracle`",
+          "session_id": "ses_1cc382ae9ffeaU4JbQbDrHOPuI",
+          "agent": "oracle",
+          "updated_at": "2026-05-17T02:44:01.629Z",
+          "started_at": "2026-05-17T02:37:30.366Z",
           "status": "completed",
-          "ended_at": "2026-05-16T17:19:06.941Z",
-          "elapsed_ms": 11514
+          "ended_at": "2026-05-17T02:44:01.629Z",
+          "elapsed_ms": 391263
         }
       },
-      "ended_at": "2026-05-16T17:19:40.366Z",
-      "elapsed_ms": 3591170
+      "ended_at": "2026-05-17T02:44:47.416Z",
+      "elapsed_ms": 3395267
     }
   },
-  "active_plan": "D:\\Users\\Himal\\Documents\\Project\\Seating-Plan-Arrangement-Web-Rebuild\\.sisyphus\\plans\\constraint-algorithm-redesign.md",
-  "started_at": "2026-05-16T16:19:49.196Z",
+  "active_plan": "D:\\Users\\Himal\\Documents\\Project\\Seating-Plan-Arrangement-Web-Rebuild\\.sisyphus\\plans\\presentation-page.md",
+  "started_at": "2026-05-17T01:48:12.149Z",
   "status": "completed",
-  "updated_at": "2026-05-16T17:19:40.366Z",
+  "updated_at": "2026-05-17T02:44:47.416Z",
   "session_ids": [
     "ses_1ce8e4ed7ffeqMcJ5I4k35Yzu9"
   ],
   "session_origins": {
     "ses_1ce8e4ed7ffeqMcJ5I4k35Yzu9": "direct"
   },
-  "plan_name": "constraint-algorithm-redesign",
+  "plan_name": "presentation-page",
   "task_sessions": {
     "todo:1": {
       "task_key": "todo:1",
       "task_label": "1",
-      "task_title": "编写 `seededArrange.js` — 数据模型与工具函数",
-      "session_id": "ses_1ce673924ffenqK3AGomtpd0xR",
+      "task_title": "App.jsx — 标签切换 + 条件渲染",
+      "session_id": "ses_1cc5fe504ffeXrch00N81K5cjD",
       "agent": "Sisyphus-Junior",
-      "category": "deep",
-      "started_at": "2026-05-16T16:30:55.383Z",
+      "category": "quick",
+      "updated_at": "2026-05-17T01:58:33.459Z",
+      "started_at": "2026-05-17T01:53:24.814Z",
       "status": "completed",
-      "updated_at": "2026-05-16T16:48:17.058Z",
-      "ended_at": "2026-05-16T16:48:17.057Z",
-      "elapsed_ms": 1041674
+      "ended_at": "2026-05-17T01:58:33.458Z",
+      "elapsed_ms": 308644
+    },
+    "todo:3": {
+      "task_key": "todo:3",
+      "task_label": "3",
+      "task_title": "Presentation.jsx 骨架 — 状态管理 + 空状态 + 基础网格",
+      "session_id": "ses_1cc55d31affeEstVcDaAJ469u7",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-05-17T02:09:40.168Z",
+      "started_at": "2026-05-17T02:03:18.378Z",
+      "status": "completed",
+      "ended_at": "2026-05-17T02:09:40.168Z",
+      "elapsed_ms": 381790
     },
     "todo:4": {
       "task_key": "todo:4",
       "task_label": "4",
-      "task_title": "精简 `randomArrange.js` — 仅保留无约束路径",
-      "session_id": "ses_1ce4f2aa7ffephLH4ZfamYOK8L",
+      "task_title": "动画 — 翻转卡片",
+      "session_id": "ses_1cc4c5b97ffe7vvb3q2goAmuaB",
       "agent": "Sisyphus-Junior",
-      "category": "quick",
-      "updated_at": "2026-05-16T16:52:03.600Z",
-      "started_at": "2026-05-16T16:49:57.659Z",
+      "category": "visual-engineering",
+      "updated_at": "2026-05-17T02:14:03.895Z",
+      "started_at": "2026-05-17T02:13:36.701Z",
       "status": "completed",
-      "ended_at": "2026-05-16T16:52:03.600Z",
-      "elapsed_ms": 125941
+      "ended_at": "2026-05-17T02:14:03.895Z",
+      "elapsed_ms": 27194
+    },
+    "todo:5": {
+      "task_key": "todo:5",
+      "task_label": "5",
+      "task_title": "动画 — 逐行渐显",
+      "session_id": "ses_1cc48f529ffeP4S6jBhZeTdIx5",
+      "agent": "Sisyphus-Junior",
+      "started_at": "2026-05-17T02:15:10.955Z",
+      "status": "completed",
+      "updated_at": "2026-05-17T02:17:56.071Z",
+      "ended_at": "2026-05-17T02:17:56.071Z",
+      "elapsed_ms": 165116
+    },
+    "todo:8": {
+      "task_key": "todo:8",
+      "task_label": "8",
+      "task_title": "模式选择器 + 重新揭晓 + 边缘情况整合",
+      "session_id": "ses_1cc448470ffeJuWp6G5C0IojE8",
+      "agent": "Sisyphus-Junior",
+      "category": "visual-engineering",
+      "updated_at": "2026-05-17T02:23:39.723Z",
+      "started_at": "2026-05-17T02:23:19.170Z",
+      "status": "completed",
+      "ended_at": "2026-05-17T02:23:39.723Z",
+      "elapsed_ms": 20553
+    },
+    "todo:9": {
+      "task_key": "todo:9",
+      "task_label": "9",
+      "task_title": "Playwright 端到端验证",
+      "session_id": "ses_1cc4049efffeQWw2DZF6gtwYov",
+      "agent": "Sisyphus-Junior",
+      "category": "unspecified-high",
+      "updated_at": "2026-05-17T02:32:44.619Z",
+      "started_at": "2026-05-17T02:32:33.718Z",
+      "status": "completed",
+      "ended_at": "2026-05-17T02:32:44.619Z",
+      "elapsed_ms": 10901
     },
     "final-wave:f1": {
       "task_key": "final-wave:f1",
       "task_label": "F1",
-      "task_title": "**约束场景端到端测试** — `unspecified-high` (+ `playwright`)",
-      "session_id": "ses_1ce4a7702fferiWojTI0FrMIIB",
-      "agent": "Sisyphus-Junior",
-      "category": "unspecified-high",
-      "updated_at": "2026-05-16T17:19:06.941Z",
-      "started_at": "2026-05-16T17:18:55.427Z",
+      "task_title": "**Plan Compliance Audit** — `oracle`",
+      "session_id": "ses_1cc382ae9ffeaU4JbQbDrHOPuI",
+      "agent": "oracle",
+      "updated_at": "2026-05-17T02:44:01.629Z",
+      "started_at": "2026-05-17T02:37:30.366Z",
       "status": "completed",
-      "ended_at": "2026-05-16T17:19:06.941Z",
-      "elapsed_ms": 11514
+      "ended_at": "2026-05-17T02:44:01.629Z",
+      "elapsed_ms": 391263
     }
   },
   "agent": "atlas",
-  "ended_at": "2026-05-16T17:19:40.366Z",
-  "elapsed_ms": 3591170
+  "ended_at": "2026-05-17T02:44:47.416Z",
+  "elapsed_ms": 3395267
 }

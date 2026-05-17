@@ -1,0 +1,55 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "⚙️ 配置" [ref=e4] [cursor=pointer]
+    - button "🎭 展示" [ref=e5] [cursor=pointer]
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e9]: 🏫 班级座位表排位系统
+      - generic [ref=e10]:
+        - button "📄 导出 CSV" [disabled] [ref=e11]
+        - button "📊 导出 Excel" [disabled] [ref=e12]
+        - button "🖼️ 导出 PNG" [disabled] [ref=e13]
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - heading "配置面板" [level=2] [ref=e16]
+        - generic [ref=e17]:
+          - heading "📋 学生名单" [level=3] [ref=e18]
+          - generic [ref=e19]:
+            - button "选择 CSV 文件" [ref=e20] [cursor=pointer]
+            - button "加载样例" [ref=e21] [cursor=pointer]
+            - generic [ref=e22]: 或拖放文件到下方文本框
+          - textbox "姓名,性别 张三,男 小红,女 ..." [ref=e23]:
+            - /placeholder: "姓名,性别\n张三,男\n小红,女\n..."
+          - generic [ref=e24]:
+            - button "解析文本" [ref=e25] [cursor=pointer]
+            - button "导出学生 CSV" [disabled] [ref=e26]
+        - generic [ref=e27]:
+          - heading "📐 座位表规格" [level=3] [ref=e28]
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - text: 行数：
+              - spinbutton "行数：" [ref=e31]: "8"
+            - generic [ref=e32]:
+              - text: 列数：
+              - spinbutton "列数：" [ref=e33]: "7"
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - text: 过道位置（在第几列之后，逗号分隔）：
+              - textbox "过道位置（在第几列之后，逗号分隔）：" [ref=e36]:
+                - /placeholder: 例如：2, 5
+            - generic [ref=e37]: 过道位置需在 1 ~ 6 之间
+        - generic [ref=e38]:
+          - heading "⚙️ 生成模式" [level=3] [ref=e39]
+          - generic [ref=e40]:
+            - generic [ref=e41] [cursor=pointer]:
+              - radio "随机排位 所有学生随机填入座位" [checked] [ref=e42]
+              - generic [ref=e43]:
+                - strong [ref=e44]: 随机排位
+                - generic [ref=e45]: 所有学生随机填入座位
+            - generic [ref=e46] [cursor=pointer]:
+              - radio "按过道分离男女 每个块内性别一致，至多一个混合块" [ref=e47]
+              - generic [ref=e48]:
+                - strong [ref=e49]: 按过道分离男女
+                - generic [ref=e50]: 每个块内性别一致，至多一个混合块
+          - button "🎲 生成座位表" [ref=e51] [cursor=pointer]
+      - generic [ref=e53]: 请先导入学生名单并点击「生成座位表」
