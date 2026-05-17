@@ -25,3 +25,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright / QA artifacts
+/*.png
+/*.yml
+
+# Sisyphus orchestration internals
+.sisyphus/
+
+# Legacy config duplicates
+config.json
+public/config.json
