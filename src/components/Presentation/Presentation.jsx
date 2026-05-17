@@ -288,7 +288,7 @@ export default function Presentation() {
           )}
 
           {isAnimating && (
-            <button className="btn btn-primary reveal-btn" disabled>
+            <button className="btn btn-primary reveal-again-btn" disabled>
               揭晓中...
             </button>
           )}
