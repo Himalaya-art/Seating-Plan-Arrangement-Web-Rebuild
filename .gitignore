@@ -36,3 +36,6 @@ dist-ssr
 # Legacy config duplicates
 config.json
 public/config.json
+
+# Ai
+AGENTS.md
