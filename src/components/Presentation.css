@@ -166,11 +166,10 @@
   border-radius: var(--radius-sm);
 }
 
-/* ── Reveal-again (same size as reveal) ── */
+/* ── Reveal-again (smaller) ───────────── */
 .presentation-view .reveal-again-btn {
-  padding: var(--space-md) var(--space-xl);
-  font-size: var(--text-base);
-  min-width: 200px;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-sm);
   margin-top: var(--space-lg);
   border-radius: var(--radius-sm);
 }
