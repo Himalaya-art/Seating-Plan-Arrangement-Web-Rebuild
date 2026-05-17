@@ -7,9 +7,18 @@ const SeatingContext = createContext(null);
 
 export function SeatingProvider({ children }) {
   const [students, setStudents] = useState([]);
-  const [nRows, setNRows] = useState(8);
-  const [nCols, setNCols] = useState(7);
-  const [aisles, setAisles] = useState([]);
+  const [nRows, setNRowsState] = useState(() => {
+    const saved = localStorage.getItem('grid-nRows');
+    return saved ? parseInt(saved, 10) : 7;
+  });
+  const [nCols, setNColsState] = useState(() => {
+    const saved = localStorage.getItem('grid-nCols');
+    return saved ? parseInt(saved, 10) : 9;
+  });
+  const [aisles, setAislesState] = useState(() => {
+    const saved = localStorage.getItem('grid-aisles');
+    return saved ? JSON.parse(saved) : [3, 6];
+  });
   const [mode, setMode] = useState('random');
   const [seatingPlan, setSeatingPlan] = useState(null);
   const [constraints, setConstraints] = useState({});
@@ -17,7 +26,16 @@ export function SeatingProvider({ children }) {
   const [isConfigLoaded, setIsConfigLoaded] = useState(false);
   const [studentCountWarning, setStudentCountWarning] = useState('');
   const [selectedSeat, setSelectedSeat] = useState(null);
-  const [animationMode, setAnimationMode] = useState('flip'); // flip|fade|bounce|scan
+  const [animationMode, setAnimationModeState] = useState(() => {
+    const saved = localStorage.getItem('grid-animationMode');
+    return saved || 'flip';
+  }); // flip|fade|bounce|scan
+
+  // Persist grid settings to localStorage
+  useEffect(() => { localStorage.setItem('grid-nRows', nRows); }, [nRows]);
+  useEffect(() => { localStorage.setItem('grid-nCols', nCols); }, [nCols]);
+  useEffect(() => { localStorage.setItem('grid-aisles', JSON.stringify(aisles)); }, [aisles]);
+  useEffect(() => { localStorage.setItem('grid-animationMode', animationMode); }, [animationMode]);
 
   const resetPlan = useCallback(() => {
     setSeatingPlan(null);
@@ -84,17 +102,17 @@ export function SeatingProvider({ children }) {
   }, []);
 
   const handleRowsChange = useCallback((val) => {
-    setNRows(val);
+    setNRowsState(val);
     resetPlan();
   }, [resetPlan]);
 
   const handleColsChange = useCallback((val) => {
-    setNCols(val);
+    setNColsState(val);
     resetPlan();
   }, [resetPlan]);
 
   const handleAislesChange = useCallback((val) => {
-    setAisles(val);
+    setAislesState(val);
     resetPlan();
   }, [resetPlan]);
 
@@ -132,7 +150,7 @@ export function SeatingProvider({ children }) {
     isConfigLoaded, setIsConfigLoaded,
     studentCountWarning,
     selectedSeat,
-    animationMode, setAnimationMode,
+    animationMode, setAnimationMode: setAnimationModeState,
     generatePlan,
     swapSeats,
     handleSeatClick,
