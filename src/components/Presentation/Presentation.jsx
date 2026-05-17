@@ -9,6 +9,7 @@ export default function Presentation() {
   const [hasRevealed, setHasRevealed] = useState(false);
   const [revealedSeats, setRevealedSeats] = useState(new Set());
   const timerRef = useRef([]);
+  const shouldAnimateRef = useRef(false);
 
   /* ── Context ──────────────────────────── */
   const {
@@ -18,15 +19,7 @@ export default function Presentation() {
     aisles,
     animationMode,
     generatePlan,
-    resetPlan,
   } = useSeating();
-
-  /* ── Clean slate on mount ─────────────── */
-  useEffect(() => {
-    resetPlan();
-    setHasRevealed(false);
-    setRevealedSeats(new Set());
-  }, []);
 
   /* ── Cleanup on unmount ──────────────── */
   useEffect(() => {
@@ -45,6 +38,9 @@ export default function Presentation() {
       return;
     }
     if (isAnimating) return; // prevent double-fire
+
+    if (!shouldAnimateRef.current) return; // only animate on explicit user click
+    shouldAnimateRef.current = false;
 
     setIsAnimating(true);
     const nRows = seatingPlan.length;
@@ -71,6 +67,7 @@ export default function Presentation() {
     if (isAnimating || students.length === 0) return;
     setHasRevealed(false);
     setRevealedSeats(new Set());
+    shouldAnimateRef.current = true;
     generatePlan();
   };
 
@@ -202,10 +199,10 @@ export default function Presentation() {
     for (let i = 0; i < blockRanges.length; i++) {
       const { start, end } = blockRanges[i];
       for (let c = start; c <= end; c++) {
-        gridCols.push('120px');
+        gridCols.push('80px');
       }
       if (i < blockRanges.length - 1) {
-        gridCols.push('28px');
+        gridCols.push('20px');
       }
     }
 
@@ -276,7 +273,9 @@ export default function Presentation() {
         </>
       ) : (
         <>
-          {hasRevealed && <div className="podium">讲台</div>}
+          {(isAnimating || hasRevealed) && (
+            <div className="podium">讲台</div>
+          )}
           {renderGrid()}
 
           {!hasRevealed && !isAnimating && (

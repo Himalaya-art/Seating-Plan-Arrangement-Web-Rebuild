@@ -3,7 +3,7 @@ import { useSeating } from '../../context/SeatingContext';
 import '../ConfigPanel.css';
 
 export default function GridSettings() {
-  const { nRows, setNRows, nCols, setNCols, aisles, setAisles, animationMode, setAnimationMode } = useSeating();
+  const { nRows, setNRows, nCols, setNCols, aisles, setAisles, animationMode, setAnimationMode, resetPlan, seatingPlan } = useSeating();
   const [rawAislesText, setRawAislesText] = useState(aisles.join(', '));
   const parseTimer = useRef(null);
 
@@ -100,6 +100,13 @@ export default function GridSettings() {
           </select>
         </label>
       </div>
+      {seatingPlan && (
+        <div className="clear-plan">
+          <button className="btn btn-danger" onClick={resetPlan}>
+            🗑️ 清除当前座位
+          </button>
+        </div>
+      )}
     </div>
   );
 }
