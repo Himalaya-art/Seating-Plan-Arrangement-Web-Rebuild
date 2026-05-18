@@ -1,2 +1,29 @@
 {
+  "周士熙": {
+    "with": {
+      "adjacency": [
+        "王浩宇",
+        "赵思贤"
+      ],
+      "range": [
+        "吕思悦"
+      ]
+    },
+    "without": {
+      "adjacency": [],
+      "range": []
+    }
+  },
+  "刘景奇": {
+    "with": {
+      "adjacency": [],
+      "range": [
+        "李若曦.李嘉晨"
+      ]
+    },
+    "without": {
+      "adjacency": [],
+      "range": []
+    }
+  }
 }
