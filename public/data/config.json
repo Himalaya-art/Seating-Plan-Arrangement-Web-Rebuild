@@ -1,1 +1,97 @@
-{}
+{
+  "王煜璞": {
+    "with": {
+      "adjacency": [],
+      "range": []
+    },
+    "without": {
+      "adjacency": [],
+      "range": [
+        "高山",
+        "林川哲",
+        "曹玥如",
+        "王思润"
+      ]
+    }
+  },
+  "李晨一": {
+    "with": {
+      "adjacency": [],
+      "range": []
+    },
+    "without": {
+      "adjacency": [
+        "高山",
+        "张德厚"
+      ],
+      "range": [
+        "赵艺灿"
+      ]
+    }
+  },
+  "赵艺灿": {
+    "with": {
+      "adjacency": [
+        "刘可欣"
+      ],
+      "range": [
+        "王梓潼"
+      ]
+    },
+    "without": {
+      "adjacency": [],
+      "range": [
+        "田棋戈"
+      ]
+    }
+  },
+  "葛锦程": {
+    "with": {
+      "adjacency": [],
+      "range": []
+    },
+    "without": {
+      "adjacency": [],
+      "range": [
+        "高山",
+        "吕思悦",
+        "王思润",
+        "孙文迪",
+        "毛钺棋",
+        "李若曦",
+        "李何恺",
+        "李嘉晨",
+        "史家豪",
+        "周士熙",
+        "梁思源"
+      ]
+    }
+  },
+  "王浩宇": {
+    "with": {
+      "adjacency": [
+        "黄景涛",
+        "刘景奇"
+      ],
+      "range": [
+        "康彦悦"
+      ]
+    },
+    "without": {
+      "adjacency": [],
+      "range": []
+    }
+  },
+  "王梓潼": {
+    "with": {
+      "adjacency": [],
+      "range": []
+    },
+    "without": {
+      "adjacency": [],
+      "range": [
+        "田棋戈"
+      ]
+    }
+  }
+}
